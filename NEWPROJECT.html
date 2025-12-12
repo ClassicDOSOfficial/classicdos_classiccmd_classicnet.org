@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Classic Series — Council Announcement</title>
+  <style>
+    :root {
+      --bg:#0e0f12; --fg:#e5e7eb; --muted:#9aa0a6;
+      --accent:#7c3aed; --ok:#16a34a; --warn:#f59e0b; --deny:#dc2626;
+      --panel:#13151a; --border:#262a33;
+    }
+    body {
+      margin: 0; font-family: Consolas, Monaco, "SF Mono", Menlo, monospace;
+      background: radial-gradient(1200px 800px at 20% 10%, #171a21, #0e0f12);
+      color: var(--fg);
+    }
+    header {
+      padding: 24px; border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(124,58,237,0.12), rgba(124,58,237,0.0));
+    }
+    h1 { margin: 0; font-size: 1.6rem; letter-spacing: 0.02em; }
+    .sub { color: var(--muted); margin-top: 6px; font-size: 0.95rem; }
+    main { max-width: 880px; margin: 28px auto; padding: 0 20px; }
+    .panel {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 20px; margin-bottom: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+    .row { display: flex; gap: 14px; flex-wrap: wrap; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 12px; border-radius: 999px; font-size: 0.9rem;
+      background: #1b1f28; border: 1px solid var(--border); color: var(--fg);
+    }
+    .badge.ok { border-color: rgba(22,163,74,0.5); color: #bbf7d0; }
+    .badge.deny { border-color: rgba(220,38,38,0.5); color: #fecaca; }
+    .badge.info { border-color: rgba(124,58,237,0.5); color: #ddd6fe; }
+    .title {
+      display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+    }
+    h2 { margin: 0; font-size: 1.2rem; }
+    .mono { font-family: inherit; color: var(--muted); }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .codebox {
+      background: #0b0c10; border: 1px solid #23262f; border-radius: 8px;
+      padding: 12px; font-size: 0.92rem; overflow-x: auto;
+    }
+    footer {
+      max-width: 880px; margin: 28px auto; padding: 0 20px 40px;
+      color: var(--muted); font-size: 0.9rem;
+    }
+    .cta {
+      display: inline-block; margin-top: 10px; padding: 10px 14px;
+      border-radius: 8px; border: 1px solid var(--border);
+      background: #1b1f28; color: var(--fg); text-decoration: none;
+    }
+    .cta:hover { border-color: var(--accent); color: #ddd6fe; }
+    @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Classic Series — Council Announcement</h1>
+    <div class="sub">Issued by ClassicDOS's Creator • Commander of "The ClassicDOS Council"</div>
+  </header>
+
+  <main>
+    <section class="panel">
+      <div class="title">
+        <h2>Verdict</h2>
+        <span class="mono">Council Docket: #CS-2025-12</span>
+      </div>
+      <div class="row" style="margin-top:10px;">
+        <span class="badge ok">APPROVED: ClassicCMD v1.0.0</span>
+		<span class= "badge ok">APPROVED:ClassicNET v.1.0.0</span>
+    </section>
+
+    <section class="panel">
+      <div class="title">
+        <h2>New project: ClassicCMD v1.0.0</h2>
+        <span class="mono">Author: Jan Jarábek</span>
+      </div>
+      <p>ClassicCMD is the emissary shell of the Classic Series: a batch dispatcher (<code>classiccmd.bat</code>) routing verbs to a modular Python command suite in <code>\COMMANDS</code>. It is approved as the official interface twin to ClassicDOS.</p>
+      <div class="grid" style="margin-top:12px;">
+        <div class="codebox">
+          <strong>Root layout</strong><br/><br/>
+<pre>ClassicCMD\
+  classiccmd.bat
+  INSTALL.bat
+  CORE\
+    env.bat, banner.bat, version.bat, help.bat, alias.bat
+  COMMANDS\
+    20 Python commands (*.py)</pre>
+        </div>
+        <div class="codebox">
+          <strong>Dispatcher excerpt</strong><br/><br/>
+<pre>@echo off
+setlocal ENABLEDELAYEDEXPANSION
+call "%~dp0CORE\env.bat"
+call "%~dp0CORE\banner.bat"
+:loop
+set /p "CMDLINE=%USERNAME%@ClassicCMD&gt; "
+for /f "tokens=1,* delims= " %%A in ("!CMDLINE!") do (
+  set "VERB=%%A" &amp; set "ARGS=%%B"
+)
+if exist "%~dp0COMMANDS\!VERB!.py" (
+  python "%~dp0COMMANDS\!VERB!.py" !ARGS!
+) else (
+  echo Unknown command: !VERB!
+)
+goto loop</pre>
+        </div>
+      </div>
+      <a class="cta" href="#" onclick="alert('Launch: classiccmd.bat'); return false;">Launch instructions</a>
+    </section>
+
+    <section class="panel">
+      <div class="title">
+        <h2>Council log</h2>
+        <span class="mono">Transparency record</span>
+      </div>
+      <div class="codebox">
+<pre>[COUNCIL] Reviewing petitions...
+[OK] ClassicCMD v1.0.0 — Approved and entered canon.
+[DENY] ClassicX — Rejected; remains vaporware. No registry entry.</pre>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="title">
+        <h2>Interop note: CMD ↔ DOS</h2>
+        <span class="mono">Bridge handshake</span>
+      </div>
+      <p>ClassicCMD may invoke ClassicDOS rituals via shared environment variables and wrapper commands. The Council approves this bridge to preserve continuity and enforce the 35‑file doctrine of ClassicDOS.</p>
+      <div class="codebox">
+<pre>set CLASSICDOS_HOME=C:\...\ClassicDOS v.1.0.2
+python COMMANDS\dosver.py</pre>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Classic Series Canon • Issued by ClassicDOS Council • © Jan Jarábek. All announcements are part of the permanent registry.
+  </footer>
+</body>
+</html>
