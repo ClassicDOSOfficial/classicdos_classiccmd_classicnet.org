@@ -11,10 +11,10 @@ color 04
 COLOR 04
 echo ************************************
 echo *  ClassicDOS v1.0.0 — END OF LIFE  *
+echo         System is Locked.
 echo ************************************
 echo.
 echo This version is no longer supported.
-echo System has been Locked. 
 echo Upgrade is REQUIRED to continue.
 echo.
 pause
@@ -35,4 +35,5 @@ if %errorlevel%==0 (
     exit /b
 
 )
+
 
