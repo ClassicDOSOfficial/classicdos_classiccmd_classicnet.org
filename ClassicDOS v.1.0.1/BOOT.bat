@@ -5,7 +5,17 @@ echo   ClassicDOS v1.0.0 - Boot Module
 echo ============================================
 echo.
 color 1F
-
+:EOS_WARNING
+color 04
+echo ===============================================
+echo      ClassicDOS v.1.0.1 will end on 
+echo        01.01.2026/01/01/26.
+echo ===============================================
+echo.
+echo ClassicDOS v.1.0.1 is sadly ending on 01/01/26.
+echo Please Upgrade to ClassicDOS v.1.0.2™.
+goto upgrade
+pause
 :boot 
 echo (START) Checking C:\ for any Errors...
 timeout /t 1 >nul
@@ -63,4 +73,5 @@ if %errorlevel%==0 (
     echo Boot aborted. Invalid product key.
     pause
     exit /b
+
 )
